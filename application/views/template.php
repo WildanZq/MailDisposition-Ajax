@@ -75,7 +75,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-messages">
                         <li>
-                            <a href="<?php echo base_url('surat'); ?>">
+                            <a href="<?php echo base_url('inbox'); ?>">
                                 <div>
                                     <strong>John Smith</strong>
                                     <span class="pull-right text-muted">
@@ -87,7 +87,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a class="text-center" href="<?php echo base_url('surat'); ?>">
+                            <a class="text-center" href="<?php echo base_url('inbox'); ?>">
                                 <strong>Read All Messages</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
@@ -100,7 +100,7 @@
                         <i class="fa fa-user fa-fw"></i><?php echo $this->session->userdata('user')['fullname']; ?> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
+                        <li><a href="<?php echo base_url('profile'); ?>"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
                         <li class="divider"></li>
                         <li><a href="<?php echo base_url('auth/logout'); ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
                     </ul>
@@ -128,10 +128,10 @@
                             <a href="<?php echo base_url('desposisi'); ?>"><i class="fa fa-envelope-o fa-fw"></i> Desposition</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url('surat'); ?>"><i class="fa fa-envelope fa-fw"></i> Inbox</a>
+                            <a href="<?php echo base_url('inbox'); ?>"><i class="fa fa-envelope fa-fw"></i> Inbox</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url('surat'); ?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            <a href="<?php echo base_url('profile'); ?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
                     </ul>
                 </div>

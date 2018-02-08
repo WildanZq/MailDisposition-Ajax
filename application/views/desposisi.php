@@ -205,7 +205,7 @@
 
 	function refreshTabelEMail() {
 		$.ajax({
-			url: '<?php echo base_url('desposisi/getAll'); ?>',
+			url: '<?php echo base_url('mail/getAll'); ?>',
 			type: 'GET',
 			dataType: 'json',
 			success: function(r) {
@@ -243,7 +243,7 @@
 		event.preventDefault();
 		data = new FormData($('#modal-tambah-form')[0]);
 		$.ajax({
-			url: '<?php echo base_url('desposisi/tambah'); ?>',
+			url: '<?php echo base_url('mail/tambah'); ?>',
 			type: 'POST',
 			dataType: 'json',
 			data: data,
@@ -273,7 +273,7 @@
 		$('#notif-edit-file').slideUp();
 		data = new FormData($('#modal-edit-file-form')[0]);
 		$.ajax({
-			url: '<?php echo base_url('desposisi/editFile'); ?>',
+			url: '<?php echo base_url('mail/editFile'); ?>',
 			type: 'POST',
 			dataType: 'json',
 			data: data,
@@ -302,7 +302,7 @@
 
 	function refreshTabelDesposisi(id) {
 		$.ajax({
-			url: '<?php echo base_url('desposisi/getDesposisiByMailId'); ?>',
+			url: '<?php echo base_url('desposisi/getByMailId'); ?>',
 			type: 'GET',
 			dataType: 'json',
 			data: 'id='+id,
@@ -340,7 +340,7 @@
 		$('#notif-tambah-desposisi-danger').slideUp();
 		event.preventDefault();
 		$.ajax({
-			url: '<?php echo base_url('desposisi/tambahDesposisi'); ?>',
+			url: '<?php echo base_url('desposisi/tambah'); ?>',
 			type: 'POST',
 			dataType: 'json',
 			data: $('#modal-tambah-desposisi-form').serialize(),
