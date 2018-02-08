@@ -118,10 +118,15 @@
                         </li>
                         <?php if ($this->session->userdata('level') == 1): ?>
                         <li>
-                            <a href="<?php echo base_url('user'); ?>"><i class="fa fa-users fa-fw"></i> User</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo base_url('mail_type'); ?>"><i class="fa fa-edit fa-fw"></i> Mail Type</a>
+                            <a href="#"><i class="fa fa-shield fa-fw"></i> Admin Zone<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo base_url('user'); ?>"><i class="fa fa-users fa-fw"></i> Users</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url('mail_type'); ?>"><i class="fa fa-edit fa-fw"></i> Mail Type</a>
+                                </li>
+                            </ul>
                         </li>
                         <?php endif ?>
                         <li>
