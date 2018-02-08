@@ -344,8 +344,10 @@
 			data: $('#modal-tambah-desposisi-form').serialize(),
 			success: function(r) {
 				if (r.status) {
-					refreshTabelDesposisi($('#id-desposisi').val());
+					id = $('#id-desposisi').val();
+					refreshTabelDesposisi(id);
 					$('#modal-tambah-desposisi-form').trigger('reset');
+					$('#id-desposisi').val(id);
 
 					$('#notif-tambah-desposisi-success').html('Create desposition success');
 					$('#notif-tambah-desposisi-success').slideDown();
