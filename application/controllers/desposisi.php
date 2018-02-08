@@ -54,6 +54,17 @@ class Desposisi extends CI_Controller {
 		echo json_encode($r);
 	}
 
+	public function delete()
+	{
+		$r = array( 'status' => false, 'error' => '' );
+
+		if ($this->desposisi_model->delete($this->input->post('id'))) {
+			$r['status'] = true;
+		}
+
+		echo json_encode($r);
+	}
+
 }
 
 /* End of file desposisi.php */

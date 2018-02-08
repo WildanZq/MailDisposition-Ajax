@@ -22,6 +22,18 @@ class Desposisi_model extends CI_Model {
 		return true;
 	}
 
+	public function delete($id)
+	{
+		$this->db
+		->where('id', $id)
+		->delete('desposition');
+
+		if ($this->db->affected_rows() == 0) {
+			return false;
+		}
+		return true;
+	}
+
 }
 
 /* End of file desposisi_model.php */

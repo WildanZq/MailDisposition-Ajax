@@ -42,9 +42,7 @@
 	        <form id="modal-tambah-desposisi-form">
 	        <div class="modal-body">
 	        	<div class="alert alert-danger" id="notif-tambah-desposisi-danger" style="display: none;"></div>
-	        	<div class="alert alert-success" id="notif-tambah-desposisi-success" style="display: none;">
-	        		Create desposition success
-	        	</div>
+	        	<div class="alert alert-success" id="notif-tambah-desposisi-success" style="display: none;"></div>
 	        	<table class="table table-bordered table-hover table-striped" id="tabel-desposisi">
 	        		<thead>
 	        			<th>To</th>
@@ -337,8 +335,8 @@
 	}
 
 	function tambahDesposisi() {
-		$('#notif-tambah-desposisi-danger').slideUp();
 		event.preventDefault();
+		$('#notif-tambah-desposisi-danger').slideUp();
 		$.ajax({
 			url: '<?php echo base_url('desposisi/tambah'); ?>',
 			type: 'POST',
@@ -347,8 +345,35 @@
 			success: function(r) {
 				if (r.status) {
 					refreshTabelDesposisi($('#id-desposisi').val());
-					$('#notif-tambah-desposisi-success').slideDown();
 					$('#modal-tambah-desposisi-form').trigger('reset');
+
+					$('#notif-tambah-desposisi-success').html('Create desposition success');
+					$('#notif-tambah-desposisi-success').slideDown();
+					setTimeout(function() {
+						$('#notif-tambah-desposisi-success').slideUp();
+					}, 2000);
+				} else {
+					$('#notif-tambah-desposisi-danger').html(r.error);
+					$('#notif-tambah-desposisi-danger').slideDown();
+				}
+			}
+		});
+	}
+
+	function deleteDesposisi(id) {
+		event.preventDefault();
+		$('#notif-tambah-desposisi-danger').slideUp();
+		$.ajax({
+			url: '<?php echo base_url('desposisi/delete'); ?>',
+			type: 'POST',
+			dataType: 'json',
+			data: 'id='+id,
+			success: function(r) {
+				if (r.status) {
+					refreshTabelDesposisi($('#id-desposisi').val());
+
+					$('#notif-tambah-desposisi-success').html('Delete desposition success');
+					$('#notif-tambah-desposisi-success').slideDown();
 					setTimeout(function() {
 						$('#notif-tambah-desposisi-success').slideUp();
 					}, 2000);
