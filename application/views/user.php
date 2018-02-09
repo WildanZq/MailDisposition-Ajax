@@ -103,6 +103,25 @@
 	    </div>
 	</div>
 </div>
+<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	    <div class="modal-content modal-sm">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	            <h4 class="modal-title" id="myModalLabel">Delete User?</h4>
+	        </div>
+	        <form id="modal-delete-form">
+	        <input type="text" name="id" id="id-delete" style="display: none">
+	       	<div class="modal-footer">
+	            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	            <button type="submit" class="btn btn-danger" onclick="deleteUser($('#id-delete').val())">
+	            	<i class="fa fa-trash"></i> Delete
+	        	</button>
+	        </div>
+	        </form>
+	    </div>
+	</div>
+</div>
 <script>
 	$(document).ready(function() {
 		refreshTabelUser();
@@ -120,11 +139,15 @@
 						<td>'+data.username+'</td>\
 						<td>'+data.fullname+'</td>\
 						<td>'+data.level+'</td>\
-						<td>\
-							<button onclick="showModalEdit('+data.id+')" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i> Edit</button>\
-							<button class="btn btn-danger" onclick="deleteUser('+data.id+')"><i class="fa fa-trash"></i></button>\
-						</td>\
-					</tr>';
+						<td><button onclick="showModalEdit('+data.id+')" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i> Edit</button>&nbsp;';
+					if (data.id != <?php echo $this->session->userdata('id'); ?>) {
+						html += '<button class="btn btn-danger btn-sm" onclick="showModalDeleteUser('+data.id+')" data-toggle="modal" data-target="#modal-delete">\
+									<i class="fa fa-trash"></i>\
+								</button>';
+					} else {
+						html += '<span class="text-muted">This is you</span>';
+					}
+					html += '</td></tr>';
 				});
 				$('#tabel-user tbody').html(html);
 			}
@@ -139,7 +162,7 @@
 			data: 'query='+query,
 			success: function(r) {
 				if (r.length == 0) {
-					html = 'Data tidak ada';
+					html = 'Data not found';
 					$('#tabel-user tbody').html(html);
 					return;
 				}
@@ -150,10 +173,15 @@
 						<td>'+data.fullname+'</td>\
 						<td>'+data.level+'</td>\
 						<td>\
-							<button onclick="showModalEdit('+data.id+')" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i> Edit</button>\
-							<button class="btn btn-danger" onclick="deleteUser('+data.id+')"><i class="fa fa-trash"></i></button>\
-						</td>\
-					</tr>';
+							<button onclick="showModalEdit('+data.id+')" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i> Edit</button>&nbsp;';
+					if (data.id != <?php echo $this->session->userdata('id'); ?>) {
+						html += '<button class="btn btn-danger btn-sm" onclick="showModalDeleteUser('+data.id+')" data-toggle="modal" data-target="#modal-delete">\
+							<i class="fa fa-trash"></i>\
+						</button>';
+					} else {
+						html += '<span class="text-muted">This is you</span>';
+					}
+					html += '</td></tr>';
 				});
 				$('#tabel-user tbody').html(html);
 			}
@@ -181,7 +209,12 @@
 		});
 	}
 
+	function showModalDeleteUser(id) {
+		$('#id-delete').val(id);
+	}
+
 	function deleteUser(id) {
+		event.preventDefault();
 		$.ajax({
 			url: '<?php echo base_url('user/delete'); ?>',
 			type: 'POST',
@@ -190,12 +223,14 @@
 			success: function(r) {
 				if (r.status) {
 					refreshTabelUser();
+					$('.modal').modal('hide');
 				}
 			}
 		});
 	}
 
 	function showModalEdit(id) {
+		$('#notif-edit').slideUp();
 		$.ajax({
 			url: '<?php echo base_url('user/getById'); ?>',
 			type: 'GET',
@@ -212,6 +247,7 @@
 
 	function editUser() {
 		event.preventDefault();
+		$('#notif-edit').slideUp();
 		$.ajax({
 			url: '<?php echo base_url('user/edit'); ?>',
 			type: 'POST',
