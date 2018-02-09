@@ -71,28 +71,11 @@
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-envelope fa-fw"></i>
+                        <span class="label label-danger" id="notif-counter">0</span>
+                        <i class="fa fa-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="<?php echo base_url('inbox'); ?>">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="<?php echo base_url('inbox'); ?>">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
+                    <ul class="dropdown-menu dropdown-messages" id="notif-belum-dibaca"></ul>
                     <!-- /.dropdown-messages -->
                 </li>
                 <li class="dropdown">
@@ -153,6 +136,43 @@
 
     </div>
     <!-- /#wrapper -->
+
+    <script>
+        $(document).ready(() => {
+            $.ajax({
+                url: '<?php echo base_url('desposisi/getUnReadedByUserId'); ?>',
+                type: 'GET',
+                dataType: 'json',
+                data: 'id='+<?php echo $this->session->userdata('id'); ?>,
+                success: (r) => {
+                    $('#notif-counter').html(r.length);
+
+                    html = '';
+                    $.each(r, (key,data) => {
+                        html += '<li>\
+                                <a href="<?php echo base_url('inbox'); ?>">\
+                                    <div>\
+                                        <strong>'+data.fullname+'</strong>\
+                                        <span class="pull-right text-muted">\
+                                            <em>'+data.desposition_at+'</em>\
+                                        </span>\
+                                    </div>\
+                                    <div>'+data.notification+'</div>\
+                                </a>\
+                            </li>\
+                        <li class="divider"></li>';
+                    });
+                    html += '<li>\
+                            <a class="text-center" href="<?php echo base_url('inbox'); ?>">\
+                                <strong>Read All Messages</strong>\
+                                <i class="fa fa-angle-right"></i>\
+                            </a>\
+                        </li>';
+                    $('#notif-belum-dibaca').html(html);
+                }
+            });
+        });
+    </script>
 
 </body>
 

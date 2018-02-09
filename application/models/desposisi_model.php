@@ -34,6 +34,17 @@ class Desposisi_model extends CI_Model {
 		return true;
 	}
 
+	public function getUnReadedByUserId($id)
+	{
+		return $this->db
+		->select('*,desposition.description')
+		->join('mail', 'mail.id = desposition.mailid')
+		->join('user', 'user.id = mail.userid')
+		->where('desposition.status', 0)
+		->where('desposition.userid', $id)
+		->get('desposition')->result();
+	}
+
 }
 
 /* End of file desposisi_model.php */

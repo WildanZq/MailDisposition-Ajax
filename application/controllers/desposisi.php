@@ -65,6 +65,12 @@ class Desposisi extends CI_Controller {
 		echo json_encode($r);
 	}
 
+	public function getUnReadedByUserId()
+	{
+		$r = $this->desposisi_model->getUnReadedByUserId($this->input->get('id'));
+		echo json_encode($r);
+	}
+
 }
 
 /* End of file desposisi.php */
