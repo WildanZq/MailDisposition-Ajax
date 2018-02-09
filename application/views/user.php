@@ -145,7 +145,7 @@
 									<i class="fa fa-trash"></i>\
 								</button>';
 					} else {
-						html += '<span class="text-muted">This is you</span>';
+						html += '<span class="text-muted"><em>This is you</em></span>';
 					}
 					html += '</td></tr>';
 				});
@@ -179,7 +179,7 @@
 							<i class="fa fa-trash"></i>\
 						</button>';
 					} else {
-						html += '<span class="text-muted">This is you</span>';
+						html += '<span class="text-muted"><em>This is you</em></span>';
 					}
 					html += '</td></tr>';
 				});

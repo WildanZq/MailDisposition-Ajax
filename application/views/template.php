@@ -162,6 +162,14 @@
                             </li>\
                         <li class="divider"></li>';
                     });
+                    if (r.length == 0) {
+                        html += '<li>\
+                                <div class="text-muted text-center">\
+                                    <em>You don\'t have notification</em>\
+                                </div>\
+                            </li>\
+                        <li class="divider"></li>';
+                    }
                     html += '<li>\
                             <a class="text-center" href="<?php echo base_url('inbox'); ?>">\
                                 <strong>Read All Messages</strong>\
