@@ -179,19 +179,22 @@
 						<td>'+data.fullname+'</td>\
 						<td>'+data.level+'</td>\
 						<td class="print">\
-							<button onclick="showModalEdit('+data.id+')" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i> Edit</button>&nbsp;';
-					if (data.id != <?php echo $this->session->userdata('id'); ?>) {
-						html += '<button class="btn btn-danger btn-sm" onclick="showModalDeleteUser('+data.id+')" data-toggle="modal" data-target="#modal-delete">\
-							<i class="fa fa-trash"></i>\
-						</button>';
-					} else {
-						html += '<span class="text-muted"><em>This is you</em></span>';
-					}
-					html += '</td></tr>';
+							<button onclick="showModalEdit('+data.id+')" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i> Edit</button>&nbsp;'+cekUserId(data.id)+'\
+						</td></tr>';
 				});
 				$('#tabel-user tbody').html(html);
 			}
 		});
+	}
+
+	function cekUserId(id) {
+		if (id != <?php echo $this->session->userdata('id'); ?>) {
+			return '<button class="btn btn-danger btn-sm" onclick="showModalDeleteUser('+data.id+')" data-toggle="modal" data-target="#modal-delete">\
+				<i class="fa fa-trash"></i>\
+			</button>';
+		} else {
+			return '<span class="text-muted"><em>This is you</em></span>';
+		}
 	}
 
 	function tambahUser() {
