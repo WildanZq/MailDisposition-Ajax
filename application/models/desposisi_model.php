@@ -37,7 +37,7 @@ class Desposisi_model extends CI_Model {
 	public function getUnReadedByUserId($id)
 	{
 		return $this->db
-		->select('*,desposition.description')
+		->select('*,desposition.description,desposition.id')
 		->join('mail', 'mail.id = desposition.mailid')
 		->join('user', 'user.id = mail.userid')
 		->where('desposition.status', 0)

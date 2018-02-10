@@ -6,7 +6,7 @@ class Auth_model extends CI_Model {
 	public function login($username,$password)
 	{
 		$user = $this->db
-		->where('username', $username)
+		->where('username like binary', $username)
 		->get('user')->row_array();
 		
 		if (password_verify($password, $user['password'])) {
