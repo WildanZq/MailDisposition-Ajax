@@ -18,6 +18,12 @@ class Desposisi extends CI_Controller {
 		$this->load->view('template', $data);
 	}
 
+	public function getById()
+	{
+		$r = $this->desposisi_model->getById($this->input->get('id'));
+		echo json_encode($r);
+	}
+
 	public function getByMailId()
 	{
 		$r = $this->desposisi_model->getByMailId($this->input->get('id'));

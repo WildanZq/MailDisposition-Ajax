@@ -18,6 +18,17 @@ class Inbox extends CI_Controller {
 		$this->load->view('template', $data);
 	}
 
+	public function detail($id)
+	{
+		if (!$this->desposisi_model->cekId($id,$this->session->userdata('id'))) {
+			redirect('inbox');
+		}
+
+		$data['view'] = 'inbox/detail';
+		$data['id'] = $id;
+		$this->load->view('template', $data);
+	}
+
 }
 
 /* End of file inbox.php */

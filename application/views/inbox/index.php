@@ -57,6 +57,10 @@
 		});
 	}
 
+	function search(query) {
+		
+	}
+
 	function cekStatus(status) {
 		if (status == 0) {
 			return '<label class="label label-danger">Belum dibaca</label>';
