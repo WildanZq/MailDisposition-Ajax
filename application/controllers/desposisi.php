@@ -24,6 +24,12 @@ class Desposisi extends CI_Controller {
 		echo json_encode($r);
 	}
 
+	public function getByUserId()
+	{
+		$r = $this->desposisi_model->getByUserId($this->input->get('id'));
+		echo json_encode($r);
+	}
+
 	public function getByMailId()
 	{
 		$r = $this->desposisi_model->getByMailId($this->input->get('id'));

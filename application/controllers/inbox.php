@@ -27,6 +27,11 @@ class Inbox extends CI_Controller {
 		$data['view'] = 'inbox/detail';
 		$data['id'] = $id;
 		$this->load->view('template', $data);
+
+		$status = $this->desposisi_model->getStatus($id);
+		if ($status == 0) {
+			$this->desposisi_model->changeToRead($id);
+		}
 	}
 
 }

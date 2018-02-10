@@ -14,6 +14,27 @@ class Desposisi_model extends CI_Model {
 		->get('desposition')->row();
 	}
 
+	public function getStatus($id)
+	{
+		return $this->db
+		->where('id', $id)
+		->get('desposition')->row_array()['status'];
+	}
+
+	public function changeToRead($id)
+	{
+		$data = array( 'status' => 1 );
+
+		$this->db
+		->where('id', $id)
+		->update('desposition', $data);
+
+		if ($this->db->affected_rows() == 0) {
+			return false;
+		}
+		return true;
+	}
+
 	public function getByMailId($id)
 	{
 		return $this->db
@@ -22,6 +43,16 @@ class Desposisi_model extends CI_Model {
 		->where('mailid', $id)
 		->get('desposition')->result();
 	}
+
+	public function getByUserId($id)
+	{
+		return $this->db
+		->select('*,desposition.description,desposition.id')
+		->join('mail', 'mail.id = desposition.mailid')
+		->join('user', 'user.id = mail.userid')
+		->where('desposition.userid', $id)
+		->get('desposition')->result();
+	}	
 
 	public function tambah($data)
 	{

@@ -36,7 +36,7 @@
 
 	function refreshTabelDisposisi() {
 		$.ajax({
-			url: '<?php echo base_url('desposisi/getUnReadedByUserId'); ?>',
+			url: '<?php echo base_url('desposisi/getByUserId'); ?>',
 			type: 'GET',
 			dataType: 'json',
 			data: 'id='+<?php echo $this->session->userdata('id'); ?>,
