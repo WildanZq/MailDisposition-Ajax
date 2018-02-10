@@ -1,9 +1,12 @@
 <div class="row">
 	<div class="col-12">
 		<h1>E-Mail List</h1><hr>
-		<div class="row">
+		<div class="row print">
 			<div class="col-sm-6">
 				<button class="btn btn-success" data-target="#modal-tambah" data-toggle="modal"><i class="fa fa-plus"></i> Create E-Mail</button>
+				<button class="btn btn-primary print" onclick="printPage()">
+					<i class="fa fa-print"></i> Print
+				</button>
 			</div>
 			<div class="col-sm-6">
 				<div class="input-group custom-search-form">
@@ -16,7 +19,6 @@
 	            </div>
 			</div>
 		</div>
-		<hr>
 		<table class="table table-striped table-hover" id="tabel-email">
 			<thead>
 				<th>Date</th>
@@ -49,7 +51,7 @@
 	        			<th>Description</th>
 	        			<th>Notification</th>
 	        			<th>Status</th>
-	        			<th></th>
+	        			<th class="print"></th>
 	        		</thead>
 	        		<tbody></tbody>
 	        	</table>
@@ -165,6 +167,10 @@
 	</div>
 </div>
 <script>
+	function printPage() {
+		window.print();
+	}
+
 	$(document).ready(function() {
 		refreshTabelEMail();
 		refreshEmailType();
@@ -218,9 +224,9 @@
 						<td>'+data.type+'</td>\
 						<td>\
 							<a href="<?php echo base_url('assets/upload/'); ?>'+data.mail_upload+'" target="_blank" class="btn btn-warning btn-sm">Show</a>\
-							<button onclick="showModalEditFile('+data.id+')" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit-file"><i class="fa fa-pencil"></i></button>\
+							<button onclick="showModalEditFile('+data.id+')" class="btn btn-primary btn-sm print" data-toggle="modal" data-target="#modal-edit-file"><i class="fa fa-pencil"></i></button>\
 						</td>\
-						<td>\
+						<td class="print">\
 							<button onclick="showModalDesposisi('+data.id+')" data-toggle="modal" data-target="#modal-desposisi" class="btn btn-info btn-sm"><i class="fa fa-plus"></i> Desposition</button>\
 							<button class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i> Edit</button>\
 							<button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>\

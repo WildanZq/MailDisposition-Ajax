@@ -1,10 +1,13 @@
 <div class="row">
 	<div class="col-12">
-		<div class="row">
+		<h1>Inbox</h1><hr>
+		<div class="row print">
 			<div class="col-sm-6">
-				<h1>Inbox</h1>
+				<button class="btn btn-primary print" onclick="printPage()">
+					<i class="fa fa-print"></i> Print
+				</button>
 			</div>
-			<div class="col-sm-6" style="margin-top: 25px">
+			<div class="col-sm-6">
 				<div class="input-group custom-search-form">
 	                <input type="text" class="form-control" placeholder="Search..." oninput="search($(this).val());">
 	                <span class="input-group-btn">
@@ -15,7 +18,6 @@
 	            </div>
 			</div>
 		</div>
-		<hr>
 		<table class="table table-striped table-hover" id="tabel-disposisi">
 			<thead>
 				<th>Sent at</th>
@@ -23,13 +25,17 @@
 				<th>Notification</th>
 				<th>File</th>
 				<th>Status</th>
-				<th></th>
+				<th class="print"></th>
 			</thead>
 			<tbody></tbody>
 		</table>
 	</div>
 </div>
 <script>
+	function printPage() {
+		window.print();
+	}
+
 	$(document).ready(() => {
 		refreshTabelDisposisi();
 	});
@@ -49,7 +55,7 @@
 						<td>'+data.notification+'</td>\
 						<td><a href="<?php echo base_url('assets/upload/') ?>'+data.mail_upload+'" target="_blank" class="btn btn-warning btn-sm">Show</a></td>\
 						<td>'+cekStatus(data.status)+'</td>\
-						<td><a href="<?php echo base_url('inbox/detail/'); ?>'+data.id+'" class="btn btn-info">Show detail</a></td>\
+						<td class="print"><a href="<?php echo base_url('inbox/detail/'); ?>'+data.id+'" class="btn btn-info">Show detail</a></td>\
 					</tr>';
 				});
 				$('#tabel-disposisi tbody').html(html);

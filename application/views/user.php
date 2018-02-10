@@ -2,8 +2,11 @@
 	<div class="col-12">
 		<h1>User List</h1><hr>
 		<div class="row">
-			<div class="col-sm-6">
+			<div class="col-sm-6 print">
 				<button class="btn btn-success" data-target="#modal-tambah" data-toggle="modal"><i class="fa fa-plus"></i> Create User</button>
+				<button class="btn btn-primary print" onclick="printPage()">
+					<i class="fa fa-print"></i> Print
+				</button>
 			</div>
 			<div class="col-sm-6">
 				<div class="input-group custom-search-form">
@@ -16,13 +19,12 @@
 	            </div>
 			</div>
 		</div>
-		<hr>
 		<table class="table table-striped table-hover" id="tabel-user">
 			<thead>
 				<th>Username</th>
 				<th>Full Name</th>
 				<th>Level</th>
-				<th></th>
+				<th class="print"></th>
 			</thead>
 			<tbody></tbody>
 		</table>
@@ -123,6 +125,10 @@
 	</div>
 </div>
 <script>
+	function printPage() {
+		window.print();
+	}
+
 	$(document).ready(function() {
 		refreshTabelUser();
 	});
@@ -139,7 +145,7 @@
 						<td>'+data.username+'</td>\
 						<td>'+data.fullname+'</td>\
 						<td>'+data.level+'</td>\
-						<td><button onclick="showModalEdit('+data.id+')" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i> Edit</button>&nbsp;';
+						<td class="print"><button onclick="showModalEdit('+data.id+')" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i> Edit</button>&nbsp;';
 					if (data.id != <?php echo $this->session->userdata('id'); ?>) {
 						html += '<button class="btn btn-danger btn-sm" onclick="showModalDeleteUser('+data.id+')" data-toggle="modal" data-target="#modal-delete">\
 									<i class="fa fa-trash"></i>\
@@ -172,7 +178,7 @@
 						<td>'+data.username+'</td>\
 						<td>'+data.fullname+'</td>\
 						<td>'+data.level+'</td>\
-						<td>\
+						<td class="print">\
 							<button onclick="showModalEdit('+data.id+')" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"></i> Edit</button>&nbsp;';
 					if (data.id != <?php echo $this->session->userdata('id'); ?>) {
 						html += '<button class="btn btn-danger btn-sm" onclick="showModalDeleteUser('+data.id+')" data-toggle="modal" data-target="#modal-delete">\

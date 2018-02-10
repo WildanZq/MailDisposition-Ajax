@@ -26,6 +26,15 @@
     <!-- Custom Fonts -->
     <link href="<?php echo base_url(); ?>assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <style type="text/css">
+        @page { size: landscape; }
+        @media print {
+            .custom-search-form, .print {
+                display: none;
+            }
+        }
+    </style>
+
     <!-- jQuery -->
     <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
 
