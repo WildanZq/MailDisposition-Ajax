@@ -61,6 +61,10 @@ class Desposisi extends CI_Controller {
 			);
 			if ($this->input->post('des_id') != null) {
 				$data['despositionid'] = $this->input->post('des_id');
+				$status = $this->desposisi_model->getStatus($this->input->post('des_id'));
+				if ($status == 1) {
+					$this->desposisi_model->changeToDes($this->input->post('des_id'));
+				}
 			}
 
 			if ($this->desposisi_model->tambah($data)) {

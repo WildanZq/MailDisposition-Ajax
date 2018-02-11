@@ -44,6 +44,20 @@ class Desposisi_model extends CI_Model {
 		return true;
 	}
 
+	public function changeToDes($id)
+	{
+		$data = array( 'status' => 2 );
+
+		$this->db
+		->where('id', $id)
+		->update('desposition', $data);
+
+		if ($this->db->affected_rows() == 0) {
+			return false;
+		}
+		return true;
+	}
+
 	public function getByMailId($id)
 	{
 		return $this->db
