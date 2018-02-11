@@ -29,8 +29,11 @@
     <style type="text/css">
         @page { size: landscape; }
         @media print {
-            .custom-search-form, .print {
+            .custom-search-form, .print, .navbar {
                 display: none;
+            }
+            #page-wrapper {
+                margin: 0 !important;
             }
         }
     </style>
