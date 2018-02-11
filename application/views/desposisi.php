@@ -333,11 +333,11 @@
 
 	function cekStatus(status) {
 		if (status == 0) {
-			return 'Belum dibaca';
+			return '<span class="label label-danger">Belum dibaca</span>';
 		} else if (status == 1) {
-			return 'Sudah dibaca';
+			return '<span class="label label-info">Sudah dibaca</span>';
 		} else {
-			return 'Telah di desposisi';
+			return '<span class="label label-primary">Telah di desposisi</span>';
 		}
 	}
 

@@ -150,13 +150,15 @@
 			data: $('#modal-disposisi-form').serialize()+'&des_id='+<?php echo $id ?>,
 			success: (r) => {
 				if (r.status) {
+					id = $('#id').val();
 					$('#modal-disposisi-form').trigger('reset');
+					$('#id').val(id);
 					showModalDisposisi();
 					$('#notif-success').html('Create disposition success');
 					$('#notif-success').slideDown();
 					setTimeout(() => {
 						$('#notif-success').slideUp();
-					} ,3000);
+					} ,2000);
 				} else {
 					$('#notif-danger').html(r.error);
 					$('#notif-danger').slideDown();
@@ -204,10 +206,35 @@
 						<td>'+data.description+'</td>\
 						<td>'+data.notification+'</td>\
 						<td>'+cekStatus(data.status)+'</td>\
-						<td><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>\
+						<td><button onclick="deleteDesposisi('+data.id+')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>\
 					</tr>';
 				});
 				$('#tabel-disposisi tbody').html(html);
+			}
+		});
+	}
+
+	function deleteDesposisi(id) {
+		event.preventDefault();
+		$('#notif-tambah-desposisi-danger').slideUp();
+		$.ajax({
+			url: '<?php echo base_url('desposisi/delete'); ?>',
+			type: 'POST',
+			dataType: 'json',
+			data: 'id='+id,
+			success: (r) => {
+				if (r.status) {
+					showModalDisposisi();
+
+					$('#notif-success').html('Delete desposition success');
+					$('#notif-success').slideDown();
+					setTimeout(() => {
+						$('#notif-success').slideUp();
+					}, 2000);
+				} else {
+					$('#notif-danger').html(r.error);
+					$('#notif-danger').slideDown();
+				}
 			}
 		});
 	}
