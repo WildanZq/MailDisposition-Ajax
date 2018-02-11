@@ -8,10 +8,10 @@ class User_model extends CI_Model {
 		return $this->db->get('user')->result();
 	}
 
-	public function getAllLowLevel()
+	public function getAllLowLevel($level)
 	{
 		return $this->db
-		->where('level > '.$this->session->userdata('level'))
+		->where('level > '.$level)
 		->get('user')->result();
 	}
 

@@ -24,6 +24,12 @@ class Desposisi extends CI_Controller {
 		echo json_encode($r);
 	}
 
+	public function getByDespositionId()
+	{
+		$r = $this->desposisi_model->getByDespositionId($this->input->get('id'));
+		echo json_encode($r);
+	}
+
 	public function getByUserId()
 	{
 		$r = $this->desposisi_model->getByUserId($this->input->get('id'));
@@ -53,6 +59,9 @@ class Desposisi extends CI_Controller {
 				'mailid' => $this->input->post('id'),
 				'userid' => $this->input->post('userid')
 			);
+			if ($this->input->post('des_id') != null) {
+				$data['despositionid'] = $this->input->post('des_id');
+			}
 
 			if ($this->desposisi_model->tambah($data)) {
 				$r['status'] = true;

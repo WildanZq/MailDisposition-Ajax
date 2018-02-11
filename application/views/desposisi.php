@@ -182,6 +182,7 @@
 			url: '<?php echo base_url('user/getAllLowLevel'); ?>',
 			type: 'GET',
 			dataType: 'json',
+			data: 'level='+<?php echo $this->session->userdata('level'); ?>,
 			success: function(r) {
 				html = '';
 				$.each(r, function(key,data) {

@@ -6,7 +6,7 @@ class User extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		if ($this->session->userdata('level') != 1) {
+		if (!$this->session->userdata('login')) {
 			redirect('/');
 		}
 		$this->load->model('user_model');
@@ -14,6 +14,9 @@ class User extends CI_Controller {
 
 	public function index()
 	{
+		if ($this->session->userdata('level') != 1) {
+			redirect('/');
+		}
 		$data['view'] = 'user';
 		$this->load->view('template', $data);
 	}
@@ -26,7 +29,7 @@ class User extends CI_Controller {
 
 	public function getAllLowLevel()
 	{
-		$r = $this->user_model->getAllLowLevel();
+		$r = $this->user_model->getAllLowLevel($this->input->get('level'));
 		echo json_encode($r);
 	}
 

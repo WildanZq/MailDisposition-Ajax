@@ -14,6 +14,15 @@ class Desposisi_model extends CI_Model {
 		->get('desposition')->row();
 	}
 
+	public function getByDespositionId($id)
+	{
+		return $this->db
+		->select('*,desposition.id')
+		->join('user', 'user.id = desposition.userid')
+		->where('despositionid', $id)
+		->get('desposition')->result();
+	}
+
 	public function getStatus($id)
 	{
 		return $this->db

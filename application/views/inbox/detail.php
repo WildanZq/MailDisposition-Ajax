@@ -4,7 +4,7 @@
 		<h1>Inbox Detail</h1><hr>
 		<div class="row">
 			<div class="col-sm-6">
-				<button class="btn btn-info"><i class="fa fa-plus"></i> Create disposition</button>
+				<button onclick="showModalDisposisi()" class="btn btn-info" data-toggle="modal" data-target="#modal-disposisi"><i class="fa fa-plus"></i> Disposition</button>
 			</div>
 			<div class="col-sm-6">
 				<div class="input-group custom-search-form">
@@ -66,10 +66,104 @@
 		</div>
 	</div>
 </div>
+<div class="modal fade" id="modal-disposisi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	            <h4 class="modal-title" id="myModalLabel">Disposition</h4>
+	        </div>
+	        <form id="modal-disposisi-form">
+	        <div class="modal-body">
+	        	<div class="alert alert-danger" id="notif-danger" style="display: none;"></div>
+	        	<div class="alert alert-success" id="notif-success" style="display: none;"></div>
+	        	<table class="table table-hover table-striped table-bordered" id="tabel-disposisi">
+	        		<thead>
+	        			<th>To</th>
+	        			<th>Description</th>
+	        			<th>Notification</th>
+	        			<th>Status</th>
+	        			<th></th>
+	        		</thead>
+	        		<tbody></tbody>
+	        	</table>
+	        	<hr>
+	        	<div class="row">
+	        		<input name="id" id="id" style="display: none">
+	        		<div class="col-md-4">
+	        			<div class="form-group">
+			        		<label>Description</label>
+		                    <textarea class="form-control" name="description" rows="1"></textarea>
+		                </div>
+	        		</div>
+	        		<div class="col-md-4">
+	        			<div class="form-group">
+			        		<label>Notification</label>
+		                    <input class="form-control" type="text" name="notification">
+		                </div>
+	        		</div>
+	        		<div class="col-md-4">
+	        			<div class="form-group">
+			        		<label>To</label>
+		                    <select class="form-control user" name="userid"></select>
+		                </div>
+	        		</div>
+	        	</div>
+	        </div>
+	        <div class="modal-footer">
+	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	            <button type="submit" class="btn btn-info" onclick="tambahDisposisi()">Create disposition</button>
+	        </div>
+	        </form>
+	    </div>
+	</div>
+</div>
 <script>
 	$(document).ready(() => {
 		getData();
+		refreshUser();
 	});
+
+	function refreshUser() {
+		$.ajax({
+			url: '<?php echo base_url('user/getAllLowLevel'); ?>',
+			type: 'GET',
+			dataType: 'json',
+			data: 'level='+<?php echo $this->session->userdata('level'); ?>,
+			success: (r) => {
+				html = '';
+				$.each(r, (key,data) => {
+					html += '<option value="'+data.id+'">'+data.fullname+'</option>';
+				});
+				$('.user').html(html);
+			}
+		});
+	}
+
+	function tambahDisposisi() {
+		event.preventDefault();
+		$('#notif-danger').slideUp();
+		$.ajax({
+			url: '<?php echo base_url('desposisi/tambah') ?>',
+			type: 'POST',
+			dataType: 'json',
+			data: $('#modal-disposisi-form').serialize()+'&des_id='+<?php echo $id ?>,
+			success: (r) => {
+				if (r.status) {
+					$('#modal-disposisi-form').trigger('reset');
+					showModalDisposisi();
+					$('#notif-success').html('Create disposition success');
+					$('#notif-success').slideDown();
+					setTimeout(() => {
+						$('#notif-success').slideUp();
+					} ,3000);
+				} else {
+					$('#notif-danger').html(r.error);
+					$('#notif-danger').slideDown();
+				}
+			}
+		});
+	}
 
 	function getData() {
 		$.ajax({
@@ -78,6 +172,7 @@
 			dataType: 'json',
 			data: 'id='+<?php echo $id; ?>,
 			success: (r) => {
+				$('#id').val(r.mailid);
 				$('#disposition-from').html(r.fullname+' at '+r.desposition_at);
 				$('#date').html(r.mail_date);
 				$('#subject').html(r.mail_subject);
@@ -90,5 +185,40 @@
 				$('#file').html('<a href="<?php echo base_url('assets/upload/'); ?>'+r.mail_upload+'" class="btn btn-warning btn-sm" target="_blank">Show file</a>');
 			}
 		});
+	}
+
+	function showModalDisposisi() {
+		$.ajax({
+			url: '<?php echo base_url('desposisi/getByDespositionId'); ?>',
+			type: 'GET',
+			dataType: 'json',
+			data: 'id='+<?php echo $id; ?>,
+			success: (r) => {
+				if (r.length == 0) {
+					$('#tabel-disposisi tbody').html('<tr><td colspan="5"><h5>There\'s no desposition yet.</h5></td></tr>');
+					return;
+				}
+				html = '';
+				$.each(r, (key,data) => {
+					html += '<tr><td>'+data.fullname+'</td>\
+						<td>'+data.description+'</td>\
+						<td>'+data.notification+'</td>\
+						<td>'+cekStatus(data.status)+'</td>\
+						<td><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>\
+					</tr>';
+				});
+				$('#tabel-disposisi tbody').html(html);
+			}
+		});
+	}
+
+	function cekStatus(status) {
+		if (status == 0) {
+			return '<span class="label label-danger">Belum dibaca</span>';
+		} else if (status == 1) {
+			return '<span class="label label-primary">Sudah dibaca</span>';
+		} else {
+			return '<span class="label label-info">Sudah didisposisi</span>';
+		}
 	}
 </script>
