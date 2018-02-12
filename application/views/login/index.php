@@ -55,7 +55,7 @@
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <button class="btn btn-success btn-block btn-lg" type="submit" onclick="login()">Login</button>
+                                <button class="btn btn-success btn-block btn-lg" type="submit" onclick="login(event)">Login</button>
                             </fieldset>
                         </form>
                     </div>
@@ -78,7 +78,7 @@
 
     <script>
         // delete script ini jika tidak ingin menggunakan ajax
-        function login() {
+        function login(event) {
             $('#alert-danger').slideUp();
             event.preventDefault();
             $.ajax({

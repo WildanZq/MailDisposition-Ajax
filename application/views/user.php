@@ -61,7 +61,7 @@
 	        </div>
 	        <div class="modal-footer">
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	            <button type="submit" class="btn btn-success" onclick="tambahUser()">Submit</button>
+	            <button type="submit" class="btn btn-success" onclick="tambahUser(event)">Submit</button>
 	        </div>
 	        </form>
 	    </div>
@@ -99,7 +99,7 @@
 	        </div>
 	        <div class="modal-footer">
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	            <button type="submit" class="btn btn-primary" onclick="editUser()">Edit</button>
+	            <button type="submit" class="btn btn-primary" onclick="editUser(event)">Edit</button>
 	        </div>
 	        </form>
 	    </div>
@@ -116,7 +116,7 @@
 	        <input type="text" name="id" id="id-delete" style="display: none">
 	       	<div class="modal-footer">
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-	            <button type="submit" class="btn btn-danger" onclick="deleteUser($('#id-delete').val())">
+	            <button type="submit" class="btn btn-danger" onclick="deleteUser($('#id-delete').val(),event)">
 	            	<i class="fa fa-trash"></i> Delete
 	        	</button>
 	        </div>
@@ -189,7 +189,7 @@
 
 	function cekUserId(id) {
 		if (id != <?php echo $this->session->userdata('id'); ?>) {
-			return '<button class="btn btn-danger btn-sm" onclick="showModalDeleteUser('+data.id+')" data-toggle="modal" data-target="#modal-delete">\
+			return '<button class="btn btn-danger btn-sm" onclick="showModalDeleteUser('+id+')" data-toggle="modal" data-target="#modal-delete">\
 				<i class="fa fa-trash"></i>\
 			</button>';
 		} else {
@@ -197,7 +197,7 @@
 		}
 	}
 
-	function tambahUser() {
+	function tambahUser(event) {
 		$('#notif-tambah').slideUp();
 		event.preventDefault();
 		$.ajax({
@@ -222,7 +222,7 @@
 		$('#id-delete').val(id);
 	}
 
-	function deleteUser(id) {
+	function deleteUser(id,event) {
 		event.preventDefault();
 		$.ajax({
 			url: '<?php echo base_url('user/delete'); ?>',
@@ -254,7 +254,7 @@
 		});
 	}
 
-	function editUser() {
+	function editUser(event) {
 		event.preventDefault();
 		$('#notif-edit').slideUp();
 		$.ajax({

@@ -80,7 +80,7 @@
 	        </div>
 	        <div class="modal-footer">
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	            <button type="submit" class="btn btn-info" onclick="tambahDesposisi()">Create Desposition</button>
+	            <button type="submit" class="btn btn-info" onclick="tambahDesposisi(event)">Create Desposition</button>
 	        </div>
 	        </form>
 	    </div>
@@ -103,7 +103,7 @@
 	        </div>
 	        <div class="modal-footer">
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	            <button type="submit" class="btn btn-primary" onclick="editFileEmail()">Edit</button>
+	            <button type="submit" class="btn btn-primary" onclick="editFileEmail(event)">Edit</button>
 	        </div>
 	    	</form>
 		</div>
@@ -160,7 +160,7 @@
 	        </div>
 	        <div class="modal-footer">
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	            <button type="submit" class="btn btn-success" onclick="tambahEmail()">Submit</button>
+	            <button type="submit" class="btn btn-success" onclick="tambahEmail(event)">Submit</button>
 	        </div>
 	        </form>
 	    </div>
@@ -243,7 +243,7 @@
 		
 	}
 
-	function tambahEmail() {
+	function tambahEmail(event) {
 		$('#notif-tambah').slideUp();
 		event.preventDefault();
 		data = new FormData($('#modal-tambah-form')[0]);
@@ -273,7 +273,7 @@
 		$('#id-file').val(id);
 	}
 
-	function editFileEmail() {
+	function editFileEmail(event) {
 		event.preventDefault();
 		$('#notif-edit-file').slideUp();
 		data = new FormData($('#modal-edit-file-form')[0]);
@@ -341,7 +341,7 @@
 		}
 	}
 
-	function tambahDesposisi() {
+	function tambahDesposisi(event) {
 		event.preventDefault();
 		$('#notif-tambah-desposisi-danger').slideUp();
 		$.ajax({

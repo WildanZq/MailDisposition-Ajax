@@ -112,7 +112,7 @@
 	        </div>
 	        <div class="modal-footer">
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	            <button type="submit" class="btn btn-info" onclick="tambahDisposisi()">Create disposition</button>
+	            <button type="submit" class="btn btn-info" onclick="tambahDisposisi(event)">Create disposition</button>
 	        </div>
 	        </form>
 	    </div>
@@ -144,7 +144,7 @@
 		});
 	}
 
-	function tambahDisposisi() {
+	function tambahDisposisi(event) {
 		event.preventDefault();
 		$('#notif-danger').slideUp();
 		$.ajax({
