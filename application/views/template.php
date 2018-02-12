@@ -81,6 +81,7 @@
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
+                <?php if ($this->session->userdata('level') != 1): ?>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i>
@@ -90,6 +91,7 @@
                     <ul class="dropdown-menu dropdown-messages" id="notif-belum-dibaca"></ul>
                     <!-- /.dropdown-messages -->
                 </li>
+                <?php endif ?>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i><?php echo $this->session->userdata('user')['fullname']; ?> <i class="fa fa-caret-down"></i>
@@ -123,13 +125,15 @@
                                 </li>
                             </ul>
                         </li>
-                        <?php endif ?>
                         <li>
                             <a href="<?php echo base_url('desposisi'); ?>"><i class="fa fa-envelope-o fa-fw"></i> Desposition</a>
                         </li>
+                        <?php endif ?>
+                        <?php if ($this->session->userdata('level') != 1): ?>
                         <li>
                             <a href="<?php echo base_url('inbox'); ?>"><i class="fa fa-envelope fa-fw"></i> Inbox</a>
                         </li>
+                        <?php endif ?>
                         <li>
                             <a href="<?php echo base_url('profile'); ?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
@@ -148,7 +152,7 @@
 
     </div>
     <!-- /#wrapper -->
-
+    <?php if ($this->session->userdata('level') != 1): ?>
     <script>
         $(document).ready(() => {
             $.ajax({
@@ -193,6 +197,7 @@
             });
         });
     </script>
+    <?php endif ?>
 
 </body>
 

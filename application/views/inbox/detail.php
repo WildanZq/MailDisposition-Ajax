@@ -131,6 +131,10 @@
 			dataType: 'json',
 			data: 'level='+<?php echo $this->session->userdata('level'); ?>,
 			success: (r) => {
+				if (r.length == 0) {
+					$('.user').html('<option value="">--You can\'t make a disposition--</option>');
+					return;
+				}
 				html = '';
 				$.each(r, (key,data) => {
 					html += '<option value="'+data.id+'">'+data.fullname+'</option>';
